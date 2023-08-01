@@ -4,9 +4,10 @@ import br.ufpb.dcx.lab1v1.entidades.Disciplina;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-
+@Service
 public class DisciplinaService {
 
     List<Disciplina> disciplinas = new ArrayList<>();
@@ -17,13 +18,8 @@ public class DisciplinaService {
         return disciplina;
     }
 
-    public Disciplina retornaTodasDisciplinas() {
-        if(disciplinas.size() != 0) {
-            for(int i = 0; i < disciplinas.size(); i++) {
-                return disciplinas.get(i);
-            }
-        }
-        return null;
+    public List<Disciplina> retornaTodasDisciplinas() {
+        return disciplinas;
     }
 
     public Disciplina retornaDisciplina(int id) {
@@ -35,11 +31,6 @@ public class DisciplinaService {
         return null;
     }
 
-    public void deletaDisciplina(int id) {
-        Disciplina disciplina = retornaDisciplina(id);
-        disciplinas.remove(disciplina);
-    }
-
     public Disciplina atualizaDisciplina(int id, String nome) {
         Disciplina disciplina = retornaDisciplina(id);
         disciplina.setNome(nome);
@@ -48,6 +39,25 @@ public class DisciplinaService {
 
     public Disciplina adicionaNota(int id, double nota) {
         Disciplina disciplina = retornaDisciplina(id);
-        disciplina.setNotas(nota);
+        disciplina.adicionarNota(nota);
+        return disciplina;
     }
+
+    public Disciplina adicionaLike(int id) {
+        Disciplina disciplina = retornaDisciplina(id);
+        disciplina.adicionaLike();
+        return disciplina;
+    }
+
+    public Disciplina removeDisciplina(int id) {
+        Disciplina disciplina = retornaDisciplina(id);
+        disciplinas.remove(disciplina);
+        return disciplina;
+    }
+
+    public List<Disciplina> ordenaDisciplinas() {
+        Collections.sort(disciplinas, Collections.reverseOrder());
+        return disciplinas;
+    }
+
 }

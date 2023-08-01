@@ -1,5 +1,6 @@
 package br.ufpb.dcx.lab1v1;
 
+import br.ufpb.dcx.lab1v1.entidades.Disciplina;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
