@@ -69,7 +69,7 @@ public class DisciplinaService {
     }
 
     public List<Disciplina> ordenaDisciplinas() {
-        Collections.sort(disciplinas, Collections.reverseOrder());
+        Collections.sort(disciplinas);
         return disciplinas;
     }
 

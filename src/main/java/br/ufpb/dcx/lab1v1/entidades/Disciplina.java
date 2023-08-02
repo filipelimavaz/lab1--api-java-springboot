@@ -72,11 +72,11 @@ public class Disciplina implements Comparable<Disciplina>{
     @Override
     public int compareTo(Disciplina disc) {
         if(this.getMediaNotas() > disc.getMediaNotas()) {
-            return 1;
+            return -1;
         } else if(this.getMediaNotas() == disc.getMediaNotas()) {
             return 0;
         } else {
-            return -1;
+            return 1;
         }
     }
 }

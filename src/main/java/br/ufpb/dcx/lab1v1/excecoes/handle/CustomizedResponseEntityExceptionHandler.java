@@ -18,12 +18,6 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     private static String ADICIONA_DISCIPLINA_URI = "https://localhost:8080/v1/api/produtos";
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ExceptionResponse> HandleAllExceptions(Exception exception, WebRequest webRequest) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), exception.getMessage(), webRequest.getDescription(false));
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(CampoInvalidoException.class)
     public ResponseEntity<DetalhesDoProblema> CampoInvalidoBadRequest(CampoInvalidoException exception) {
         DetalhesDoProblema problema = new DetalhesDoProblema();
