@@ -1,5 +1,6 @@
 package br.ufpb.dcx.lab1v1.services;
 
+import br.ufpb.dcx.lab1v1.dtos.DisciplinaDTO;
 import br.ufpb.dcx.lab1v1.entidades.Disciplina;
 import br.ufpb.dcx.lab1v1.excecoes.*;
 import org.springframework.stereotype.Service;
@@ -12,21 +13,27 @@ import java.util.List;
 public class DisciplinaService {
 
     List<Disciplina> disciplinas = new ArrayList<>();
+    List<DisciplinaDTO> disciplinasDTO = new ArrayList<>();
 
-    public Disciplina adicionarDisciplina(String nome) {
+    public DisciplinaDTO adicionarDisciplina(String nome) {
         Disciplina disciplina = new Disciplina(nome);
         validaDisciplina(nome);
         verificaDisciplinaCadastrada(nome);
         disciplinas.add(disciplina);
-        return disciplina;
+        DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+        return disciplinaDTO;
     }
 
-    public List<Disciplina> retornaTodasDisciplinas() {
+    public List<DisciplinaDTO> retornaTodasDisciplinas() {
         if(disciplinas.size() == 0) {
             throw new NenhumaDisciplinaCadastradaException("Não existe nenhuma disciplina no sistema",
                     "Cadastre alguma disciplina para poder lista-las");
         }
-        return disciplinas;
+        for(Disciplina disciplina : disciplinas) {
+            DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+            disciplinasDTO.add(disciplinaDTO);
+        }
+        return disciplinasDTO;
     }
 
     public Disciplina retornaDisciplina(Long id) {
@@ -40,37 +47,52 @@ public class DisciplinaService {
                 "Não existe uma disciplina com o id inserido");
     }
 
-    public Disciplina atualizaDisciplina(Long id, String nome) {
+    public DisciplinaDTO retornaDisciplinaDTO(Long id) {
+        validaID(id);
+        for(Disciplina disciplina : disciplinas) {
+            if(id == disciplina.getId()) {
+                DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+                return disciplinaDTO;
+            }
+        }
+        throw new IdInvalidoException("O id inserido é inválido",
+                "Não existe uma disciplina com o id inserido");
+    }
+
+    public DisciplinaDTO atualizaDisciplina(Long id, String nome) {
         Disciplina disciplina = retornaDisciplina(id);
         validaDisciplina(nome);
         verificaDisciplinaCadastrada(nome);
-
         disciplina.setNome(nome);
-        return disciplina;
+        DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+        return disciplinaDTO;
     }
 
-    public Disciplina adicionaNota(Long id, Double nota) {
+    public DisciplinaDTO adicionaNota(Long id, Double nota) {
         Disciplina disciplina = retornaDisciplina(id);
         verificaNota(nota);
         disciplina.adicionarNota(nota);
-        return disciplina;
+        DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+        disciplinaDTO.setMedia(disciplina.getMediaNotas());
+        return disciplinaDTO;
     }
 
-    public Disciplina adicionaLike(Long id) {
+    public DisciplinaDTO adicionaLike(Long id) {
         Disciplina disciplina = retornaDisciplina(id);
         disciplina.adicionaLike();
-        return disciplina;
+        DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+        return disciplinaDTO;
     }
 
-    public Disciplina removeDisciplina(Long id) {
+    public DisciplinaDTO removeDisciplina(Long id) {
         Disciplina disciplina = retornaDisciplina(id);
-        disciplinas.remove(disciplina);
-        return disciplina;
+        DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+        return disciplinaDTO;
     }
 
-    public List<Disciplina> ordenaDisciplinas() {
-        Collections.sort(disciplinas);
-        return disciplinas;
+    public List<DisciplinaDTO> ordenaDisciplinas() {
+        Collections.sort(disciplinasDTO);
+        return disciplinasDTO;
     }
 
     public boolean validaDisciplina(String nome) {
@@ -103,6 +125,4 @@ public class DisciplinaService {
         }
         return true;
     }
-
-
 }

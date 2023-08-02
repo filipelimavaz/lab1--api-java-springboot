@@ -1,19 +1,15 @@
 package br.ufpb.dcx.lab1v1.entidades;
 
-import br.ufpb.dcx.lab1v1.excecoes.DisciplinaInvalidaException;
-import br.ufpb.dcx.lab1v1.excecoes.DisciplinaJaExistenteException;
-import br.ufpb.dcx.lab1v1.excecoes.IdInvalidoException;
-import br.ufpb.dcx.lab1v1.excecoes.NotaInvalidaException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Disciplina implements Comparable<Disciplina>{
+public class Disciplina{
 
     private static long proximoID = 1;
-    private long id;
+    private Long id;
     private String nome;
     private int likes;
+    private Double nota;
     private List<Double> notas = new ArrayList<>();
 
     public Disciplina(String nome) {
@@ -21,7 +17,7 @@ public class Disciplina implements Comparable<Disciplina>{
         this.id = proximoID++;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -41,23 +37,30 @@ public class Disciplina implements Comparable<Disciplina>{
         this.likes = likes;
     }
 
-    /*public List<Double> getNotas() {
+    public List<Double> getNotas() {
         return notas;
     }
 
     public void setNotas(List<Double> notas) {
         this.notas = notas;
-    }*/
+    }
+
+    public Double getNota() {
+        return nota;
+    }
 
     public void adicionarNota(Double nota) {
         notas.add(nota);
+    }
+    public void removerNota() {
+        notas.clear();
     }
 
     public void adicionaLike() {
         this.likes += 1;
     }
 
-    public Double geraMediaNotas(List<Double> notas) {
+    private Double geraMediaNotas(List<Double> notas) {
         double aux = 0;
         for(Double nota : notas) {
             aux += nota;
@@ -69,14 +72,5 @@ public class Disciplina implements Comparable<Disciplina>{
         return geraMediaNotas(notas);
     }
 
-    @Override
-    public int compareTo(Disciplina disc) {
-        if(this.getMediaNotas() > disc.getMediaNotas()) {
-            return -1;
-        } else if(this.getMediaNotas() == disc.getMediaNotas()) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
+
 }
