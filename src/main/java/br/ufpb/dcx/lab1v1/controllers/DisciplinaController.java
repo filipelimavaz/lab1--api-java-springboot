@@ -21,7 +21,7 @@ public class DisciplinaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(disciplinaService.adicionarDisciplina(disciplinaDTO.getNome()));
     }
 
-    @GetMapping("/v1/api/disciplinas/lista_disciplinas")
+    @GetMapping("/v1/api/disciplinas")
     public ResponseEntity<List<DisciplinaDTO>> retornaDisciplinas() {
         return ResponseEntity.status(HttpStatus.OK).body(disciplinaService.retornaTodasDisciplinas());
     }

@@ -21,6 +21,7 @@ public class DisciplinaService {
         verificaDisciplinaCadastrada(nome);
         disciplinas.add(disciplina);
         DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
+        disciplinasDTO.add(disciplinaDTO);
         return disciplinaDTO;
     }
 
@@ -28,10 +29,6 @@ public class DisciplinaService {
         if(disciplinas.size() == 0) {
             throw new NenhumaDisciplinaCadastradaException("Não existe nenhuma disciplina no sistema",
                     "Cadastre alguma disciplina para poder lista-las");
-        }
-        for(Disciplina disciplina : disciplinas) {
-            DisciplinaDTO disciplinaDTO = new DisciplinaDTO(disciplina);
-            disciplinasDTO.add(disciplinaDTO);
         }
         return disciplinasDTO;
     }
