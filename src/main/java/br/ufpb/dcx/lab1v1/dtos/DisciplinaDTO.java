@@ -1,11 +1,14 @@
 package br.ufpb.dcx.lab1v1.dtos;
 
+import br.ufpb.dcx.lab1v1.excecoes.DisciplinaInvalidaException;
+import br.ufpb.dcx.lab1v1.excecoes.NotaInvalidaException;
+
 import java.util.List;
 
 public class DisciplinaDTO {
 
-    private static int proximoID = 1;
-    private int id;
+    private static long proximoID = 1;
+    private long id;
     private String nome;
     private int likes;
     private Double nota;
@@ -15,7 +18,12 @@ public class DisciplinaDTO {
 
     }
 
-    public int getId() {
+    public DisciplinaDTO(String nome) {
+        this.nome = nome;
+        this.id = proximoID++;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -41,5 +49,9 @@ public class DisciplinaDTO {
 
     public void setNotas(List<Double> notas) {
         this.notas = notas;
+    }
+
+    public void setNota(Double nota){
+        this.nota = nota;
     }
 }
