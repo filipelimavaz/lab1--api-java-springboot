@@ -31,17 +31,17 @@ public class DisciplinaController {
         return ResponseEntity.status(HttpStatus.OK).body(disciplinaService.retornaDisciplinaDTO(id));
     }
 
-    @PostMapping("/v1/api/disciplinas/{id}/nome")
+    @PatchMapping("/v1/api/disciplinas/{id}/nome")
     public ResponseEntity<DisciplinaDTO> atualizaDisciplina(@PathVariable Long id, @RequestBody DisciplinaDTO disciplinaDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(disciplinaService.atualizaDisciplina(id, disciplinaDTO.getNome()));
     }
 
-    @PostMapping("/v1/api/disciplinas/{id}/nota")
+    @PatchMapping("/v1/api/disciplinas/{id}/nota")
     public ResponseEntity<DisciplinaDTO> adicionaNota(@PathVariable Long id, @RequestBody DisciplinaDTO disciplinaDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(disciplinaService.adicionaNota(id, disciplinaDTO.getMedia()));
     }
 
-    @PostMapping("/v1/api/disciplinas/{id}/like")
+    @PatchMapping("/v1/api/disciplinas/{id}/like")
     public ResponseEntity<DisciplinaDTO> adicionaLike(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(disciplinaService.adicionaLike(id));
     }
